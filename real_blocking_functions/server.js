@@ -3,16 +3,7 @@ const express = require('express');
 const app = express();
 
 /*
-We will make a blocking call to the server. 
-
-While this function is running, the server will not be able to handle any other requests.
-
-This function is simulating a very expensive computation, like a machine learning inference,
-or using pyomo to solve a DAE.
-
-Think about many people requesting this same server at once.
-
-This is really bad.
+The function below is an unrealistic blocking function.
 */
 function delay(duration) {
     const start = Date.now();
@@ -20,6 +11,30 @@ function delay(duration) {
         // event loop is blocked!
     };
 }
+/*
+Some real blocking functions that are common are:
+    - Machine learning inference
+    - Solving a DAE
+    - Solving a PDE
+    - Solving a large ODE
+    - Solving a large LP
+    - Solving a large MIP
+    - Solving a large QP
+
+    These are all common tasks in engineering and data science.
+
+But simpler ones include:
+    JSON.stringify() // takes a JS object and returns a string
+    JSON.parse() // the opposite of stringify
+    [0, 2, 1, 7, 8, 4, 2, 1].sort()
+
+    This is common when logging objects.
+
+    With typical JSON objects, these functions take only a few milliseconds.
+    But if you have a server that takes many requests,
+    then these can add up.
+
+*/
 
 app.get('/', (req, res) => {
     res.send('Performance Example');
