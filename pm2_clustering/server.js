@@ -17,7 +17,7 @@ const os = require('os')
 */
 // After
 const express = require('express');
-//const pm2 = require('pm2')
+//const pm2 = require('pm2') // We don't need to import pm2
 
 
 const app = express();
